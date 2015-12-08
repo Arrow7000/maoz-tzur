@@ -1,20 +1,22 @@
 /*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
 
+
 /*
  * What follows is the result of much research on cross-browser styling.
  * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
  * Kroc Camen, and the H5BP dev community and team.
  */
 
+
 /* ==========================================================================
    Base styles: opinionated defaults
    ========================================================================== */
 
-   html,
-   button,
-   input,
-   select,
-   textarea {
+html,
+button,
+input,
+select,
+textarea {
     color: #222;
 }
 
@@ -23,13 +25,14 @@ html {
     line-height: 1.4;
 }
 
+
 /*
  * Remove text-shadow in selection highlight: h5bp.com/i
  * These selection rule sets have to be separate.
  * Customize the background color to match your design.
  */
 
- ::-moz-selection {
+::-moz-selection {
     background: #b3d4fc;
     text-shadow: none;
 }
@@ -39,11 +42,12 @@ html {
     text-shadow: none;
 }
 
+
 /*
  * A better looking default horizontal rule
  */
 
- hr {
+hr {
     display: block;
     height: 1px;
     border: 0;
@@ -52,166 +56,135 @@ html {
     padding: 0;
 }
 
+
 /*
  * Remove the gap between images, videos, audio and canvas and the bottom of
  * their containers: h5bp.com/i/440
  */
 
- audio,
- canvas,
- img,
- video {
+audio,
+canvas,
+img,
+video {
     vertical-align: middle;
 }
+
 
 /*
  * Remove default fieldset styles.
  */
 
- fieldset {
+fieldset {
     border: 0;
     margin: 0;
     padding: 0;
 }
 
+
 /*
  * Allow only vertical resizing of textareas.
  */
 
- textarea {
+textarea {
     resize: vertical;
 }
+
 
 /* ==========================================================================
    Browse Happy prompt
    ========================================================================== */
 
-   .browsehappy {
+.browsehappy {
     margin: 0.2em 0;
     background: #ccc;
     color: #000;
     padding: 0.2em 0;
 }
 
+
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
 
 
+/****** Fonts *******/
 
-
-   /****** Fonts *******/
-
-
-   @font-face {
+@font-face {
     font-family: 'shofar';
     src: url('../fonts/shofardemi-bold-webfont.eot');
-    src: url('../fonts/shofardemi-bold-webfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/shofardemi-bold-webfont.woff') format('woff'),
-    url('../fonts/shofardemi-bold-webfont.ttf') format('truetype'),
-    url('../fonts/shofardemi-bold-webfont.svg#shofarbold') format('svg');
+    src: url('../fonts/shofardemi-bold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/shofardemi-bold-webfont.woff') format('woff'), url('../fonts/shofardemi-bold-webfont.ttf') format('truetype'), url('../fonts/shofardemi-bold-webfont.svg#shofarbold') format('svg');
     font-weight: bold;
     font-style: normal;
-
 }
+
 @font-face {
     font-family: 'shofar';
     src: url('../fonts/shofardemi-boldoblique-webfont.eot');
-    src: url('../fonts/shofardemi-boldoblique-webfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/shofardemi-boldoblique-webfont.woff') format('woff'),
-    url('../fonts/shofardemi-boldoblique-webfont.ttf') format('truetype'),
-    url('../fonts/shofardemi-boldoblique-webfont.svg#shofarboldoblique') format('svg');
+    src: url('../fonts/shofardemi-boldoblique-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/shofardemi-boldoblique-webfont.woff') format('woff'), url('../fonts/shofardemi-boldoblique-webfont.ttf') format('truetype'), url('../fonts/shofardemi-boldoblique-webfont.svg#shofarboldoblique') format('svg');
     font-weight: bold;
     font-style: italic;
-
 }
+
 @font-face {
     font-family: 'shofar';
     src: url('../fonts/shofarregular-webfont.eot');
-    src: url('../fonts/shofarregular-webfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/shofarregular-webfont.woff') format('woff'),
-    url('../fonts/shofarregular-webfont.ttf') format('truetype'),
-    url('../fonts/shofarregular-webfont.svg#shofarregular') format('svg');
+    src: url('../fonts/shofarregular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/shofarregular-webfont.woff') format('woff'), url('../fonts/shofarregular-webfont.ttf') format('truetype'), url('../fonts/shofarregular-webfont.svg#shofarregular') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
+
 @font-face {
     font-family: 'shofar';
     src: url('../fonts/shofarregularoblique-webfont.eot');
-    src: url('../fonts/shofarregularoblique-webfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/shofarregularoblique-webfont.woff') format('woff'),
-    url('../fonts/shofarregularoblique-webfont.ttf') format('truetype'),
-    url('../fonts/shofarregularoblique-webfont.svg#shofarregularoblique') format('svg');
+    src: url('../fonts/shofarregularoblique-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/shofarregularoblique-webfont.woff') format('woff'), url('../fonts/shofarregularoblique-webfont.ttf') format('truetype'), url('../fonts/shofarregularoblique-webfont.svg#shofarregularoblique') format('svg');
     font-weight: normal;
     font-style: italic;
 }
-
 
 @font-face {
     font-family: 'david_clm';
     src: url('../fonts/davidclm-bold-webfont.eot');
-    src: url('../fonts/davidclm-bold-webfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/davidclm-bold-webfont.woff') format('woff'),
-    url('../fonts/davidclm-bold-webfont.ttf') format('truetype'),
-    url('../fonts/davidclm-bold-webfont.svg#david_clmbold') format('svg');
+    src: url('../fonts/davidclm-bold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/davidclm-bold-webfont.woff') format('woff'), url('../fonts/davidclm-bold-webfont.ttf') format('truetype'), url('../fonts/davidclm-bold-webfont.svg#david_clmbold') format('svg');
     font-weight: bold;
     font-style: normal;
-
 }
-
-
-
 
 @font-face {
     font-family: 'david_clm';
     src: url('../fonts/davidclm-bolditalic-webfont.eot');
-    src: url('../fonts/davidclm-bolditalic-webfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/davidclm-bolditalic-webfont.woff') format('woff'),
-    url('../fonts/davidclm-bolditalic-webfont.ttf') format('truetype'),
-    url('../fonts/davidclm-bolditalic-webfont.svg#david_clmbolditalic') format('svg');
+    src: url('../fonts/davidclm-bolditalic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/davidclm-bolditalic-webfont.woff') format('woff'), url('../fonts/davidclm-bolditalic-webfont.ttf') format('truetype'), url('../fonts/davidclm-bolditalic-webfont.svg#david_clmbolditalic') format('svg');
     font-weight: bold;
     font-style: italic;
-
 }
-
-
-
 
 @font-face {
     font-family: 'david_clm';
     src: url('../fonts/davidclm-medium-webfont.eot');
-    src: url('../fonts/davidclm-medium-webfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/davidclm-medium-webfont.woff') format('woff'),
-    url('../fonts/davidclm-medium-webfont.ttf') format('truetype'),
-    url('../fonts/davidclm-medium-webfont.svg#david_clmmedium') format('svg');
+    src: url('../fonts/davidclm-medium-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/davidclm-medium-webfont.woff') format('woff'), url('../fonts/davidclm-medium-webfont.ttf') format('truetype'), url('../fonts/davidclm-medium-webfont.svg#david_clmmedium') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
-
-
-
 
 @font-face {
     font-family: 'david_clm';
     src: url('../fonts/davidclm-mediumitalic-webfont.eot');
-    src: url('../fonts/davidclm-mediumitalic-webfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/davidclm-mediumitalic-webfont.woff') format('woff'),
-    url('../fonts/davidclm-mediumitalic-webfont.ttf') format('truetype'),
-    url('../fonts/davidclm-mediumitalic-webfont.svg#david_clmmediumitalic') format('svg');
+    src: url('../fonts/davidclm-mediumitalic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/davidclm-mediumitalic-webfont.woff') format('woff'), url('../fonts/davidclm-mediumitalic-webfont.ttf') format('truetype'), url('../fonts/davidclm-mediumitalic-webfont.svg#david_clmmediumitalic') format('svg');
     font-weight: normal;
     font-style: italic;
-
 }
 
 
 /***** All styling *****/
 
 @-webkit-keyframes glow {
-  from, to { color: #ddddc8; }
-  50% { color: #fff; }
-} 
+    from,
+    to {
+        color: #bba;
+    }
+    50% {
+        color: #fff;
+    }
+}
 
 html {
     direction: ltr;
@@ -221,7 +194,15 @@ html {
     /*color: #B3B8BC;*/
     color: #ddddc8;
 }
-h4, h5, h6 {
+
+canvas#menorah {
+    width: 100%;
+    height: 250px;
+}
+
+h4,
+h5,
+h6 {
     font-weight: normal;
 }
 
@@ -229,6 +210,7 @@ h4, h5, h6 {
     padding: 50px 20%;
     /*background-color: #f4f4f4;*/
 }
+
 img {
     display: block;
     width: 200px;
@@ -236,24 +218,30 @@ img {
     margin-left: auto;
     max-width: 100%;
 }
+
 .hebrew {
     font-family: 'shofar', 'david_clm', 'Alef', serif;
     direction: rtl;
     /*text-shadow: 1px 1px 1px #ddd;*/
 }
+
 .intro {
     text-align: center;
     direction: ltr;
 }
+
 #shehe {
     font-style: italic;
 }
+
 #blessings {
     font-size: 2.2em;
 }
+
 #hanerot {
     font-size: 2.2em;
 }
+
 #maoz {
     font-size: 2.2em;
 }
@@ -263,7 +251,7 @@ img {
     padding: 10px 50px;
     /*border: 5px solid #333;*/
     /*border-radius: 25px;*/
-    -webkit-transition: background-color .1s, border-color .1s, color .1s; 
+    -webkit-transition: background-color .1s, border-color .1s, color .1s;
     transition: background-color .1s, border-color .1s, color .1s;
     /*box-shadow: 2px 2px #d1e7fd;*/
 }
@@ -271,38 +259,34 @@ img {
 .part {
     margin-bottom: 120px;
 }
+
 #footer {
     text-align: center;
 }
+
 #footer p.credits,
 #footer p.credits a {
     -webkit-animation-name: glow;
     -webkit-animation-duration: 3s;
-    -webkit-animation-iteration-count: infinite; 
-    color: rgba(0,0,0,0); 
+    -webkit-animation-iteration-count: infinite;
+    color: rgba(0, 0, 0, 0);
     -webkit-transition: color .5s;
     transition: color .5s;
 }
+
 #footer p.credits:hover,
 #footer p.credits:hover a {
     -webkit-animation-name: glow;
-    -webkit-animation-play-state: paused; 
-    color: rgba(0,0,50,1);
+    -webkit-animation-play-state: paused;
+    color: rgba(0, 0, 50, 1);
 }
-
-
-
-
-
-
-
-
-
 
 
 /********** Responsive styles **********/
 
+
 /* Smaller than mobile */
+
 @media (max-width: 600px) {
     .container {
         padding: 0;
@@ -333,7 +317,7 @@ img {
         margin-bottom: 50px;
     }
     .container div.hebrew-area {
-        margin-right:0;
+        margin-right: 0;
         margin-left: 0;
         border-radius: 0;
         border-left: 0px;
@@ -342,7 +326,9 @@ img {
     }
 }
 
+
 /* Larger than mobile */
+
 @media (min-width: 600px) {
     .container {
         padding: 0 20px 20px;
@@ -353,7 +339,9 @@ img {
     }
 }
 
+
 /* Larger than tablet */
+
 @media (min-width: 850px) {
     .container {
         padding: 20px 10%;
@@ -363,38 +351,31 @@ img {
         padding: 20px 0 0;
     }
 }
+
+
 /* Large desktop */
+
 @media (min-width: 1200px) {
     .container {
         padding: 0;
     }
     .inner-container {
         margin: 50px auto;
-        width:960px;
+        width: 960px;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* ==========================================================================
    Helper classes
    ========================================================================== */
 
+
 /*
  * Image replacement
  */
 
- .ir {
+.ir {
     background-color: transparent;
     border: 0;
     overflow: hidden;
@@ -409,20 +390,22 @@ img {
     height: 150%;
 }
 
+
 /*
  * Hide from both screenreaders and browsers: h5bp.com/u
  */
 
- .hidden {
+.hidden {
     display: none !important;
     visibility: hidden;
 }
+
 
 /*
  * Hide only visually, but have it available for screenreaders: h5bp.com/v
  */
 
- .visuallyhidden {
+.visuallyhidden {
     border: 0;
     clip: rect(0 0 0 0);
     height: 1px;
@@ -433,13 +416,14 @@ img {
     width: 1px;
 }
 
+
 /*
  * Extends the .visuallyhidden class to allow the element to be focusable
  * when navigated to via the keyboard: h5bp.com/p
  */
 
- .visuallyhidden.focusable:active,
- .visuallyhidden.focusable:focus {
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
     clip: auto;
     height: auto;
     margin: 0;
@@ -448,13 +432,15 @@ img {
     width: auto;
 }
 
+
 /*
  * Hide visually and from screenreaders, but maintain layout
  */
 
- .invisible {
+.invisible {
     visibility: hidden;
 }
+
 
 /*
  * Clearfix: contain floats
@@ -468,24 +454,28 @@ img {
  *    `:before` to contain the top-margins of child elements.
  */
 
- .clearfix:before,
- .clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    /* 1 */
+    display: table;
+    /* 2 */
 }
 
 .clearfix:after {
     clear: both;
 }
 
+
 /*
  * For IE 6/7 only
  * Include this rule to trigger hasLayout and contain floats.
  */
 
- .clearfix {
+.clearfix {
     *zoom: 1;
 }
+
 
 /* ==========================================================================
    EXAMPLE Media Queries for Responsive Design.
@@ -493,7 +483,7 @@ img {
    Modify as content requires.
    ========================================================================== */
 
-   @media only screen and (min-width: 35em) {
+@media only screen and (min-width: 35em) {
     /* Style adjustments for viewports that meet the condition */
 }
 
@@ -504,72 +494,63 @@ img {
     /* Style adjustments for high resolution devices */
 }
 
+
 /* ==========================================================================
    Print styles.
    Inlined to avoid required HTTP connection: h5bp.com/r
    ========================================================================== */
 
-   @media print {
+@media print {
     * {
         background: transparent !important;
-        color: #000 !important; /* Black prints faster: h5bp.com/s */
+        color: #000 !important;
+        /* Black prints faster: h5bp.com/s */
         box-shadow: none !important;
         text-shadow: none !important;
     }
-
     a,
     a:visited {
         text-decoration: underline;
     }
-
     a[href]:after {
         content: " (" attr(href) ")";
     }
-
     abbr[title]:after {
         content: " (" attr(title) ")";
     }
-
     /*
      * Don't show links for images, or javascript/internal links
      */
-
-     .ir a:after,
-     a[href^="javascript:"]:after,
-     a[href^="#"]:after {
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
         content: "";
     }
-
     pre,
     blockquote {
         border: 1px solid #999;
         page-break-inside: avoid;
     }
-
     thead {
-        display: table-header-group; /* h5bp.com/t */
+        display: table-header-group;
+        /* h5bp.com/t */
     }
-
     tr,
     img {
         page-break-inside: avoid;
     }
-
     img {
         max-width: 100% !important;
     }
-
     @page {
         margin: 0.5cm;
     }
-
     p,
     h2,
     h3 {
         orphans: 3;
         widows: 3;
     }
-
     h2,
     h3 {
         page-break-after: avoid;
