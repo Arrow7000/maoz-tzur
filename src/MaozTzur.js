@@ -3,10 +3,37 @@ import * as content from './MaozTzurContent';
 import Selector from './Selector';
 import Section from './Section';
 import Footer from './Footer';
+import 'whatwg-fetch';
 
 class MaozTzur extends Component {
 	constructor() {
 		super();
+
+		// fetch('http://freegeoip.net/json/').then(response => {
+		// 	return response.json();
+		// }).then(json => {
+		// 	console.log(json);
+		// }).catch(function (error) {
+		// 	console.log('request failed', error)
+		// });
+
+
+		fetch('http://freegeoip.net/json/')
+			.then(res => res.json())
+			.then(res => {
+				return fetch(`http://www.hebcal.com/hebcal/?v=1&cfg=json&year=now&month=12&c=on&geo=pos&latitude=${res.latitude}&longitude=${res.longitude}&tzid=UTC`);
+			})
+			.then(res => res.json())
+			.then(res => {
+				console.log(res);
+			})
+			.catch(function (error) {
+				console.log('request failed', error)
+			});
+
+		// this.state.location = response;
+
+
 		this.state = {
 			languages: content.languages,
 			nusachot: content.versions,
