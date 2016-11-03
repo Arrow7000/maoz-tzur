@@ -176,7 +176,7 @@ textarea {
 
 /***** All styling *****/
 
-@-webkit-keyframes glow {
+@keyframes glow {
     from,
     to {
         color: #bba;
@@ -266,9 +266,9 @@ img {
 
 #footer p.credits,
 #footer p.credits a {
-    -webkit-animation-name: glow;
-    -webkit-animation-duration: 3s;
-    -webkit-animation-iteration-count: infinite;
+    animation-name: glow;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
     color: rgba(0, 0, 0, 0);
     -webkit-transition: color .5s;
     transition: color .5s;
@@ -276,8 +276,8 @@ img {
 
 #footer p.credits:hover,
 #footer p.credits:hover a {
-    -webkit-animation-name: glow;
-    -webkit-animation-play-state: paused;
+    animation-name: glow;
+    animation-play-state: paused;
     color: rgba(0, 0, 50, 1);
 }
 

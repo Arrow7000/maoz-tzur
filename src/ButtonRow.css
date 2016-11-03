@@ -1,0 +1,28 @@
+.ButtonRow {
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 15px;
+    padding: 15px;
+    justify-content: space-around;
+    font-family: "Open Sans", sans-serif;
+    background-color: #223;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ButtonRow__button {
+    background-color: #223;
+    color: #ddddc8;
+    font-family: "Open Sans", sans-serif;
+    padding: 10px;
+    border: 2px solid #001;
+}
+
+.ButtonRow__button:focus {
+    outline: 0;
+}
+
+.ButtonRow__button.selected {
+    background-color: #001;
+}
