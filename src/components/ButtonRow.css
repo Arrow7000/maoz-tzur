@@ -7,8 +7,8 @@
     align-items: stretch;
     font-family: "Open Sans", sans-serif;
     background-color: #223;
-    /*width: 50%;*/
-    max-width: 500px;
+    /*max-width: 500px;*/
+    width: 100%;
 }
 
 .ButtonRow__button {
@@ -37,8 +37,29 @@
     border-color: #223;
 }
 
-@media (max-width: 600px) {
+
+/* Larger than mobile */
+
+@media (min-width: 600px) {
     .ButtonRow__center {
-        width: 100%;
+        width: calc(100% - 40px);
+    }
+}
+
+
+/* Larger than tablet */
+
+@media (min-width: 850px) {
+    .ButtonRow__center {
+        width: 80%;
+    }
+}
+
+
+/* Large desktop */
+
+@media (min-width: 1200px) {
+    .ButtonRow__center {
+        width: 960px;
     }
 }

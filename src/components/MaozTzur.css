@@ -1,14 +1,19 @@
-.container {
+.MaozTzur {
+    margin: 0;
     padding: 0;
-    padding-bottom: 20px;
+}
+
+.MaozTzur__inner {
+    margin: 0;
+    margin-bottom: 20px;
 }
 
 
 /* Larger than mobile */
 
 @media (min-width: 600px) {
-    .container {
-        padding: 0 20px 20px;
+    .MaozTzur__inner {
+        margin: 0 20px 20px;
     }
 }
 
@@ -16,8 +21,8 @@
 /* Larger than tablet */
 
 @media (min-width: 850px) {
-    .container {
-        padding: 20px 10%;
+    .MaozTzur__inner {
+        margin: 20px 10%;
     }
 }
 
@@ -25,10 +30,7 @@
 /* Large desktop */
 
 @media (min-width: 1200px) {
-    .container {
-        padding: 0;
-    }
-    .inner-container {
+    .MaozTzur__inner {
         margin: 50px auto;
         width: 960px;
     }
