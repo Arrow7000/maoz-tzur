@@ -1,0 +1,44 @@
+.ButtonRow__center {
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    font-family: "Open Sans", sans-serif;
+    background-color: #223;
+    /*width: 50%;*/
+    max-width: 500px;
+}
+
+.ButtonRow__button {
+    background-color: #223;
+    padding: 10px;
+    color: #ddddc8;
+    font-family: "Open Sans", sans-serif;
+    border: none;
+    border-top: 2px solid #223;
+}
+
+.ButtonRow__button--nusach {
+    width: calc(100%/3);
+}
+
+.ButtonRow__button--language {
+    width: calc(100%/2);
+}
+
+.ButtonRow__button:focus {
+    outline: 0;
+}
+
+.ButtonRow__button.selected {
+    background-color: #001;
+    border-color: #223;
+}
+
+@media (max-width: 600px) {
+    .ButtonRow__center {
+        width: 100%;
+    }
+}

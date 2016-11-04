@@ -23,11 +23,6 @@
 			"tag": "hebrew"
 		}
 	],
-	"english": {
-		"ashkenaz": [],
-		"sefarad": [],
-		"sefaradi": []
-	},
 	"hebrew": {
 		"ashkenaz": [
 			{
@@ -76,6 +71,61 @@
 					},
 					{
 						"text": "חֲשׂוֹף זְרוֹעַ קָדְשֶׁךָ וְקָרֵב קֵץ הַיְשׁוּעָה נְקֹם נִקְמַת עֲבָדֶיךָ מֵאֻמָּה הָרְשָׁעָה כִּי אָרְכָה הַשָּׁעָה וְאֵין קֵץ לִימֵי הָרָעָה דְּחֵה אַדְמוֹן בְּצֵל צַלְמוֹן הָקֵם לָנוּ רוֹעִים שִׁבְעָה"
+					}
+				]
+			}
+		],
+		"sefarad": [],
+		"sefaradi": []
+	},
+	"english": {
+		"ashkenaz": [
+			{
+				"title": "Menorah Lighting Blessings",
+				"subtitle": "One says these blessings before lighting the Menorah",
+				"content": [
+					{
+						"text": "Blessed are You, Lord our G‑d, King of the universe, who has sanctified us with His commandments, and commanded us to kindle the Chanukah light."
+					},
+					{
+						"text": "Blessed are You, Lord our G‑d, King of the universe, who performed miracles for our forefathers in those days, at this time."
+					},
+					{
+						"title": "This blessing is only said on the first night:",
+						"text": "Blessed are You, Lord our G‑d, King of the universe, who has granted us life, sustained us, and enabled us to reach this occasion."
+					}
+				]
+			},
+			{
+				"title": "Hanerot Halalu",
+				"subtitle": "After lighting one says this",
+				"content": [
+					{
+						"text": "We kindle these lights (to commemorate) the saving acts, miracles and wonders which You have performed for our forefathers, in those days at this time, through Your holy priests. Throughout the eight days of Chanukah, these lights are sacred, and we are not permitted to make use of them, but only to look at them, in order to offer thanks and praise to Your great Name for Your miracles, for Your wonders and for Your salvations."
+					}
+				]
+			},
+			{
+				"title": "Maoz Tzur",
+				"subtitle": "This is sung after the lighting of the Menorah",
+				"content": [
+					{
+						"text": "O mighty stronghold of my salvation, to praise You is a delight. Restore my House of Prayer and there we will bring a thanksgiving offering. When You will have prepared the slaughter for the blaspheming foe, Then I shall complete with a song of hymn the dedication of the Altar."
+					},
+					{
+						"text": "My soul had been sated with troubles, my strength has been consumed with grief. They had embittered my life with hardship, with the calf-like kingdom's bondage. But with His great power He brought forth the treasured ones, Pharaoh's army and all his offspring Went down like a stone into the deep. "
+					},
+					{
+						"text": "To the holy abode of His Word He brought me. But there, too, I had no rest And an oppressor came and exiled me. For I had served aliens, And had drunk benumbing wine. Scarcely had I departed At Babylon's end Zerubabel came. At the end of seventy years I was saved. "
+					},
+					{
+						"text": "To sever the towering cypress sought the Aggagite, son of Hammedatha, But it became [a snare and] a stumbling block to him and his arrogance was stilled. The head of the Benjaminite You lifted and the enemy, his name You obliterated His numerous progeny - his possessions on the gallows You hanged. "
+					},
+					{
+						"text": "Greeks gathered against me then in Hasmonean days. They breached the walls of my towers and they defiled all the oils; And from the one remnant of the flasks a miracle was wrought for the roses. Men of insight - eight days established for song and jubilation "
+					},
+					{
+						"text": "Bare Your holy arm and hasten the End for salvation Avenge the vengeance of Your servants' blood from the wicked nation. For the triumph is too long delayed for us, and there is no end to days of evil, Repel the Red One in the nethermost shadow and establish for us the seven shepherds. "
 					}
 				]
 			}

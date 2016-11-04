@@ -1,0 +1,29 @@
+.Footer {
+    text-align: center;
+}
+
+.Footer p.credits,
+.Footer p.credits a {
+    animation-name: glow;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    color: rgba(0, 0, 0, 0);
+    transition: color .5s;
+}
+
+.Footer p.credits:hover,
+.Footer p.credits:hover a {
+    animation-name: glow;
+    animation-play-state: paused;
+    color: rgba(0, 0, 50, 1);
+}
+
+@keyframes glow {
+    from,
+    to {
+        color: #bba;
+    }
+    50% {
+        color: #fff;
+    }
+}

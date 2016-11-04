@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import * as content from './MaozTzurContent';
+import './MaozTzur.css';
+import * as content from './../MaozTzurContent';
 import Selector from './Selector';
+import Menorah from './Menorah';
 import Section from './Section';
 import Footer from './Footer';
 import 'whatwg-fetch';
@@ -8,15 +10,6 @@ import 'whatwg-fetch';
 class MaozTzur extends Component {
 	constructor() {
 		super();
-
-		// fetch('http://freegeoip.net/json/').then(response => {
-		// 	return response.json();
-		// }).then(json => {
-		// 	console.log(json);
-		// }).catch(function (error) {
-		// 	console.log('request failed', error)
-		// });
-
 
 		fetch('http://freegeoip.net/json/')
 			.then(res => res.json())
@@ -32,7 +25,6 @@ class MaozTzur extends Component {
 			});
 
 		// this.state.location = response;
-
 
 		this.state = {
 			languages: content.languages,
@@ -52,17 +44,21 @@ class MaozTzur extends Component {
 		const { language, nusach } = this.state.selected;
 
 		return (
-			<div>
-				<Selector
-					selected={this.state.selected}
-					languages={this.state.languages}
-					nusachot={this.state.nusachot}
-					handler={this.selectHandler} />
-				{content[language][nusach].map(section => <Section
-					section={section}
-					key={section.title} />)}
-				<Footer />
-			</div>)
+			<section className="container">
+				<div className="inner-container">
+					<Menorah />
+					<Selector
+						selected={this.state.selected}
+						languages={this.state.languages}
+						nusachot={this.state.nusachot}
+						handler={this.selectHandler} />
+					{content[language][nusach].map(section => <Section
+						section={section}
+						key={section.title}
+						language={this.state.selected.language} />)}
+					<Footer />
+				</div>
+			</section>)
 	}
 }
 

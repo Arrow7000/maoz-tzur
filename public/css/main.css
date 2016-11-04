@@ -176,109 +176,18 @@ textarea {
 
 /***** All styling *****/
 
-@keyframes glow {
-    from,
-    to {
-        color: #bba;
-    }
-    50% {
-        color: #fff;
-    }
-}
-
 html {
     direction: ltr;
-    text-align: justify;
+    text-align: center;
     font-family: 'Open Sans';
     background-color: #001;
-    /*color: #B3B8BC;*/
     color: #ddddc8;
-}
-
-canvas#menorah {
-    width: 100%;
-    height: 250px;
 }
 
 h4,
 h5,
 h6 {
     font-weight: normal;
-}
-
-.container {
-    padding: 50px 20%;
-    /*background-color: #f4f4f4;*/
-}
-
-img {
-    display: block;
-    width: 200px;
-    margin-right: auto;
-    margin-left: auto;
-    max-width: 100%;
-}
-
-.hebrew {
-    font-family: 'shofar', 'david_clm', 'Alef', serif;
-    direction: rtl;
-    /*text-shadow: 1px 1px 1px #ddd;*/
-}
-
-.intro {
-    text-align: center;
-    direction: ltr;
-}
-
-#shehe {
-    font-style: italic;
-}
-
-#blessings {
-    font-size: 2.2em;
-}
-
-#hanerot {
-    font-size: 2.2em;
-}
-
-#maoz {
-    font-size: 2.2em;
-}
-
-.hebrew-area {
-    background-color: #223;
-    padding: 10px 50px;
-    /*border: 5px solid #333;*/
-    /*border-radius: 25px;*/
-    -webkit-transition: background-color .1s, border-color .1s, color .1s;
-    transition: background-color .1s, border-color .1s, color .1s;
-    /*box-shadow: 2px 2px #d1e7fd;*/
-}
-
-.part {
-    margin-bottom: 120px;
-}
-
-#footer {
-    text-align: center;
-}
-
-#footer p.credits,
-#footer p.credits a {
-    animation-name: glow;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
-    color: rgba(0, 0, 0, 0);
-    -webkit-transition: color .5s;
-    transition: color .5s;
-}
-
-#footer p.credits:hover,
-#footer p.credits:hover a {
-    animation-name: glow;
-    animation-play-state: paused;
-    color: rgba(0, 0, 50, 1);
 }
 
 
@@ -288,17 +197,9 @@ img {
 /* Smaller than mobile */
 
 @media (max-width: 600px) {
-    .container {
-        padding: 0;
-        padding-bottom: 20px;
-    }
-    .menorah-container {
-        width: 100px;
-        margin: 0 auto;
-    }
     img {
-        padding: 20px 0 0;
-        max-width: 100%;
+        /*padding: 20px 0 0;
+        max-width: 100%;*/
     }
     .container .intro {
         margin-right: 10px;
@@ -313,9 +214,6 @@ img {
     #maoz {
         font-size: 1.5em;
     }
-    .part {
-        margin-bottom: 50px;
-    }
     .container div.hebrew-area {
         margin-right: 0;
         margin-left: 0;
@@ -329,41 +227,12 @@ img {
 
 /* Larger than mobile */
 
-@media (min-width: 600px) {
-    .container {
-        padding: 0 20px 20px;
-    }
-    img {
-        width: 100px;
-        padding: 20px 0 0;
-    }
-}
+@media (min-width: 600px) {}
 
 
 /* Larger than tablet */
 
-@media (min-width: 850px) {
-    .container {
-        padding: 20px 10%;
-    }
-    img {
-        width: 200px;
-        padding: 20px 0 0;
-    }
-}
-
-
-/* Large desktop */
-
-@media (min-width: 1200px) {
-    .container {
-        padding: 0;
-    }
-    .inner-container {
-        margin: 50px auto;
-        width: 960px;
-    }
-}
+@media (min-width: 850px) {}
 
 
 /* ==========================================================================

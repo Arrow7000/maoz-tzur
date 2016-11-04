@@ -1,28 +1,6 @@
 import React, { Component } from 'react';
 import './Selector.css';
-import './ButtonRow.css';
-
-class ButtonRow extends Component {
-	click(tag) {
-		// console.log(this.props.type, tag);
-		this.props.handler(this.props.type, tag);
-	}
-	render() {
-		return (
-			<div className="ButtonRow">
-				{this.props.selectors.map(sel => {
-					const isActive = sel.tag === this.props.active;
-					return (
-						<button
-							className={`ButtonRow__button ${isActive ? 'selected' : ''}`}
-							onClick={() => this.click(sel.tag)}
-							key={sel.tag}>{sel.label}</button>
-					)
-				})}
-			</div>
-		)
-	}
-}
+import ButtonRow from './ButtonRow';
 
 class Selector extends Component {
 	render() {
