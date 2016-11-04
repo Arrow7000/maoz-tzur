@@ -9,7 +9,6 @@ class Selector extends Component {
 	}
 	toggleOpen() {
 		this.setState({ open: !this.state.open });
-		console.log('clicked opener');
 	}
 	render() {
 		const { nusachot, languages } = this.props;
