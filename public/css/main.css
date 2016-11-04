@@ -184,10 +184,18 @@ html {
     color: #ddddc8;
 }
 
+body {
+    height: 100%;
+}
+
 h4,
 h5,
 h6 {
     font-weight: normal;
+}
+
+p {
+    margin-bottom: 0;
 }
 
 

@@ -1,11 +1,12 @@
 .MaozTzur {
     margin: 0;
+    /*margin-bottom: 100px;*/
     padding: 0;
 }
 
 .MaozTzur__inner {
     margin: 0;
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
 }
 
 
@@ -13,7 +14,7 @@
 
 @media (min-width: 600px) {
     .MaozTzur__inner {
-        margin: 0 20px 20px;
+        margin: 0 20px 0;
     }
 }
 
@@ -22,7 +23,7 @@
 
 @media (min-width: 850px) {
     .MaozTzur__inner {
-        margin: 20px 10%;
+        margin: 20px 10% 0;
     }
 }
 
@@ -31,7 +32,7 @@
 
 @media (min-width: 1200px) {
     .MaozTzur__inner {
-        margin: 50px auto;
+        margin: 50px auto 0;
         width: 960px;
     }
 }
