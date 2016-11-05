@@ -197,10 +197,6 @@ h6 {
 /* Smaller than mobile */
 
 @media (max-width: 600px) {
-    img {
-        /*padding: 20px 0 0;
-        max-width: 100%;*/
-    }
     .container .intro {
         margin-right: 10px;
         margin-left: 10px;
