@@ -184,6 +184,10 @@ html {
     color: #ddddc8;
 }
 
+body {
+    height: 100%;
+}
+
 h4,
 h5,
 h6 {
@@ -191,44 +195,9 @@ h6 {
 }
 
 
-/********** Responsive styles **********/
-
-
-/* Smaller than mobile */
-
-@media (max-width: 600px) {
-    .container .intro {
-        margin-right: 10px;
-        margin-left: 10px;
-    }
-    #blessings {
-        font-size: 1.7em;
-    }
-    #hanerot {
-        font-size: 1.5em;
-    }
-    #maoz {
-        font-size: 1.5em;
-    }
-    .container div.hebrew-area {
-        margin-right: 0;
-        margin-left: 0;
-        border-radius: 0;
-        border-left: 0px;
-        border-right: 0px;
-        padding: 5px;
-    }
+p {
+    margin-bottom: 0;
 }
-
-
-/* Larger than mobile */
-
-@media (min-width: 600px) {}
-
-
-/* Larger than tablet */
-
-@media (min-width: 850px) {}
 
 
 /* ==========================================================================

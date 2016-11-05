@@ -3,11 +3,19 @@ import './Selector.css';
 import ButtonRow from './ButtonRow';
 
 class Selector extends Component {
+	constructor() {
+		super();
+		this.state = { open: false };
+	}
+	toggleOpen() {
+		this.setState({ open: !this.state.open });
+	}
 	render() {
 		const { nusachot, languages } = this.props;
 
 		return (
-			<div className="Selector">
+			<div className={`Selector Selector--${this.state.open ? 'open' : 'closed'}`} >
+				<button className="Selector__opener" onClick={this.toggleOpen.bind(this)}>Aא</button>
 				<ButtonRow
 					selectors={nusachot}
 					type="nusach"
