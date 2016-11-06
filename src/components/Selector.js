@@ -16,16 +16,18 @@ class Selector extends Component {
 		return (
 			<div className={`Selector Selector--${this.state.open ? 'open' : 'closed'}`} >
 				<button className="Selector__opener" onClick={this.toggleOpen.bind(this)}>Aא</button>
-				<ButtonRow
-					selectors={nusachot}
-					type="nusach"
-					active={this.props.selected.nusach}
-					handler={this.props.handler} />
-				<ButtonRow
-					selectors={languages}
-					type="language"
-					active={this.props.selected.language}
-					handler={this.props.handler} />
+				<div className="Selector__switches">
+					<ButtonRow
+						selectors={nusachot}
+						type="nusach"
+						active={this.props.selected.nusach}
+						handler={this.props.handler} />
+					<ButtonRow
+						selectors={languages}
+						type="language"
+						active={this.props.selected.language}
+						handler={this.props.handler} />
+				</div>
 			</div>
 		);
 	}

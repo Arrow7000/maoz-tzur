@@ -1,0 +1,8 @@
+.DisplayTimes {
+    transition: color .5s;
+    color: rgba(0, 0, 0, 0);
+}
+
+.DisplayTimes--has-content {
+    color: #ddddc8;
+}

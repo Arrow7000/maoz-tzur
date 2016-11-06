@@ -2,8 +2,8 @@
     text-align: center;
 }
 
-.Footer p.credits,
-.Footer p.credits a {
+.credits,
+.credits a {
     animation-name: glow;
     animation-duration: 3s;
     animation-iteration-count: infinite;
@@ -11,11 +11,15 @@
     transition: color .5s;
 }
 
-.Footer p.credits:hover,
-.Footer p.credits:hover a {
+.credits:hover,
+.credits:hover a {
     animation-name: glow;
     animation-play-state: paused;
     color: rgba(0, 0, 50, 1);
+}
+
+.credits {
+    margin-bottom: 1em;
 }
 
 @keyframes glow {
