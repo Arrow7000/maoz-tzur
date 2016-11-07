@@ -17,11 +17,7 @@ class Selector extends Component {
 			<div className={`Selector Selector--${this.state.open ? 'open' : 'closed'}`} >
 				<button className="Selector__opener" onClick={this.toggleOpen.bind(this)}>Aא</button>
 				<div className="Selector__switches">
-					<ButtonRow
-						selectors={nusachot}
-						type="nusach"
-						active={this.props.selected.nusach}
-						handler={this.props.handler} />
+
 					<ButtonRow
 						selectors={languages}
 						type="language"
@@ -32,5 +28,12 @@ class Selector extends Component {
 		);
 	}
 }
+
+// // Selector for languages
+// <ButtonRow
+// 	selectors={nusachot}
+// 	type="nusach"
+// 	active={this.props.selected.nusach}
+// 	handler={this.props.handler} />
 
 export default Selector;

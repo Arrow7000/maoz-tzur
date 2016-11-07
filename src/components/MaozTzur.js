@@ -15,7 +15,7 @@ class MaozTzur extends Component {
             languages: content.languages,
             nusachot: content.versions,
             selected: {
-                language: 'english',
+                language: 'hebrew',
                 nusach: 'ashkenaz'
             }
         };
