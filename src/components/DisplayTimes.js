@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './DisplayTimes.css';
 import moment from 'moment';
-import getTimes from './getTimes';
-import parseHebcalItem from './parseHebcalItem';
+import getTimes from './lib/getTimes';
+import parseHebcalItem from './lib/parseHebcalItem';
 
 const samples = [{
     "title": "Chanukah: 1 Candle: 5:05pm",
