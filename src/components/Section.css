@@ -1,6 +1,6 @@
 .Section {
     margin-bottom: 50px;
-    font-size: 2.2em;
+    font-size: 1.6em;
 }
 
 .title {
@@ -29,12 +29,13 @@
 }
 
 .english {
-    font-size: 0.9em;
+    font-size: 0.75em;
 }
 
 @media (min-width: 600px) {
     .Section {
         margin-bottom: 120px;
+        font-size: 2.2em;
     }
     .text__area {
         padding-left: 50px;

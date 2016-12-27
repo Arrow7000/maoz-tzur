@@ -1,0 +1,16 @@
+.test-container {
+    font-size: 1.4em;
+}
+
+.test {
+    width: 50%;
+    display: inline-block;
+}
+
+.hebrew-test {
+    text-align: right;
+}
+
+.english-test {
+    text-align: left;
+}

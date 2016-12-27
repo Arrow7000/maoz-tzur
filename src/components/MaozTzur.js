@@ -7,6 +7,9 @@ import Menorah from './Menorah';
 import Section from './Section';
 import Footer from './Footer';
 
+import HebrewEnglishCompare from './HebrewEnglishCompare';
+
+
 class MaozTzur extends Component {
     constructor() {
         super();
