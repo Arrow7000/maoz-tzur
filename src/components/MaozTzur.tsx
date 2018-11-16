@@ -11,7 +11,7 @@ import content, {
   Attribute
 } from "./../MaozTzurContent";
 import Selector from "./Selector";
-import DisplayTimes from "./DisplayTimes";
+// import DisplayTimes from "./DisplayTimes";
 import Menorah from "./Menorah";
 import Section from "./Section";
 import Footer from "./Footer";
@@ -48,7 +48,7 @@ class MaozTzur extends Component<Props, State> {
       <section className="MaozTzur">
         <div className="MaozTzur__inner">
           <Menorah />
-          <DisplayTimes />
+          {/* <DisplayTimes /> */}
           {content[language][nusach].map(section => (
             <Section
               section={section}
