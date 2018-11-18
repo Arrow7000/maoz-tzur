@@ -11,7 +11,7 @@ import content, {
   Attribute
 } from "./../MaozTzurContent";
 import Selector from "./Selector";
-// import DisplayTimes from "./DisplayTimes";
+import CandleCount from "./CandleCount";
 import Menorah from "./Menorah";
 import Section from "./Section";
 import Footer from "./Footer";
@@ -37,6 +37,13 @@ class MaozTzur extends Component<Props, State> {
       }
     };
   }
+
+  componentDidMount() {
+    console.log(
+      "Hi there fellow developer 👋\nCheck out my other projects at https://github.com/Arrow7000"
+    );
+  }
+
   selectHandler(type: Attribute, selection: AllAttributes) {
     const newSel = { ...this.state.selected, [type]: selection };
     this.setState({ selected: newSel });
@@ -48,7 +55,7 @@ class MaozTzur extends Component<Props, State> {
       <section className="MaozTzur">
         <div className="MaozTzur__inner">
           <Menorah />
-          {/* <DisplayTimes /> */}
+          <CandleCount />
           {content[language][nusach].map(section => (
             <Section
               section={section}

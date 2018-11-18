@@ -2,7 +2,7 @@
   "compilerOptions": {
     "jsx": "preserve",
     "strict": true,
-    "target": "es5",
+    "target": "es2015",
     "allowJs": true,
     "skipLibCheck": false,
     "esModuleInterop": true,
