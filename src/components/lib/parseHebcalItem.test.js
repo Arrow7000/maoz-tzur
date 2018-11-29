@@ -1,1 +1,0 @@
-import parseHebcalItem from './components/parseHebcalItem';
