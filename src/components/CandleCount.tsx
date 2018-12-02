@@ -1,16 +1,21 @@
 import React, { Component } from "react";
 import axios from "axios";
 import find from "lodash/find";
-import moment from "moment";
+import moment, { Moment } from "moment";
+import { config } from "dotenv";
 
-const locationUrl = `http://api.ipstack.com/check?access_key=${
-  process.env.IP_STACK_KEY
-}&format=1`;
+config();
+
+const locationUrl =
+  "https://api.ipgeolocation.io/ipgeo?apiKey=540aeef7e13540ecbfad5d2023d5998c";
 const regex = /^Chanukah: (\d) Candles?: (\d\d?:\d\dpm)$/;
+
+const jerusalemGeonameId = "281184";
 
 interface LightingInfo {
   count: number;
-  time: string;
+  timeStr: string;
+  date: Moment;
 }
 
 interface FullLightingInfo extends LightingInfo {
@@ -23,8 +28,11 @@ interface State {
 }
 
 interface LocationInfo {
+  geoname_id: string;
   city: string;
-  location: { geoname_id: number };
+  latitude: string;
+  longitude: string;
+  time_zone: { name: string };
 }
 
 export interface HebCalItem {
@@ -41,19 +49,30 @@ type HebCalResponse = {
   items: HebCalItem[];
 };
 
+export interface LocationHebCalResult {
+  geoname_id: string;
+  city: string;
+  items: HebCalItem[];
+  now: Moment;
+}
+
 // All side-effecty functions in one place
-async function makeLocationAndHebcalReqs() {
+async function makeLocationAndHebcalReqs(): Promise<LocationHebCalResult> {
   const locationResponse = await axios.get<LocationInfo>(locationUrl);
   const {
     city,
-    location: { geoname_id }
+    geoname_id,
+    latitude,
+    longitude,
+    time_zone: { name: tzid }
   } = locationResponse.data;
 
-  const hebcalUrl = `https://www.hebcal.com/hebcal/?v=1&cfg=json&maj=on&min=off&mod=off&nx=off&year=now&month=x&ss=off&mf=off&c=on&geo=geoname&m=0&s=off&geonameid=${geoname_id}`;
+  const hebcalUrl = `https://www.hebcal.com/hebcal/?v=1&cfg=json&maj=on&min=off&mod=off&nx=off&year=now&month=x&ss=off&mf=off&c=on&geo=pos&m=0&s=off&latitude=${latitude}&longitude=${longitude}&tzid=${tzid}`;
   const { data } = await axios.get<HebCalResponse>(hebcalUrl);
-  const todayDate = moment().format("YYYY-MM-DD");
 
-  return { city, items: data.items, todayDate };
+  const now = moment();
+
+  return { city, geoname_id, items: data.items, now };
 }
 
 function getLightingInfoFromHebcalItem(item: HebCalItem): LightingInfo | null {
@@ -61,31 +80,49 @@ function getLightingInfoFromHebcalItem(item: HebCalItem): LightingInfo | null {
   if (regexResult) {
     return {
       count: parseInt(regexResult[1]),
-      time: regexResult[2]
+      timeStr: regexResult[2],
+      date: moment(item.date)
     };
   }
-  return regexResult;
+  return null;
 }
 
 export function extractLightingInfo({
+  geoname_id,
   city,
   items,
-  todayDate
-}: {
-  city: string;
-  items: HebCalItem[];
-  todayDate: string;
-}): FullLightingInfo | null {
+  now
+}: LocationHebCalResult): FullLightingInfo | null {
+  const fridayNum = 5; // Sun=0, Sat=6
+  const itsFriday = now.day() === fridayNum;
+  const todayDate = now.format("YYYY-MM-DD");
+  const inJerusalem = geoname_id === jerusalemGeonameId;
+
   const chanukahItems = items.filter(item => item.title.match(regex));
   const todayItem = find(chanukahItems, item =>
     item.date.startsWith(todayDate)
   );
 
+  /**
+   * If it's friday and in Jerusalem: use 40 instead of 18 pre-shkiah time
+   * else ULT
+   */
+
   if (todayItem) {
     // It's Chanukah, bitches
     const lightingInfo = getLightingInfoFromHebcalItem(todayItem);
     if (lightingInfo) {
-      return { ...lightingInfo, location: city };
+      if (inJerusalem && itsFriday) {
+        return {
+          ...lightingInfo,
+          location: city,
+          timeStr: moment(lightingInfo.date)
+            .subtract(22, "minutes")
+            .format("h:mma")
+        };
+      } else {
+        return { ...lightingInfo, location: city };
+      }
     }
   }
   return null;
@@ -115,7 +152,7 @@ export default class CandleCount extends Component<{}, State> {
       return (
         <h3>
           Tonight in {info.location} one lights {info.count} candle
-          {info.count === 1 ? "" : "s"} at {info.time}
+          {info.count === 1 ? "" : "s"} at {info.timeStr}
         </h3>
       );
     } else {

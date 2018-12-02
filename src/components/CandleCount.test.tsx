@@ -1,4 +1,9 @@
-import { HebCalItem, extractLightingInfo } from "./CandleCount";
+import {
+  HebCalItem,
+  extractLightingInfo,
+  LocationHebCalResult
+} from "./CandleCount";
+import moment from "moment";
 
 const sampleApiResponse: HebCalItem[] = [
   {
@@ -47,10 +52,11 @@ const sampleApiResponse: HebCalItem[] = [
 
 describe("Testing extractLightingInfo functionality", () => {
   it("should return null when it's not Chanukah", () => {
-    const input = {
+    const input: LocationHebCalResult = {
+      geoname_id: "12345",
       city: "Chicago",
       items: sampleApiResponse,
-      todayDate: "2018-11-17"
+      now: moment("2018-11-17T16:43:00-00:00") // non-Chanukah date
     };
     const response = extractLightingInfo(input);
     expect(response).toEqual(null);
@@ -59,17 +65,23 @@ describe("Testing extractLightingInfo functionality", () => {
   function testIsChanukahForDate(
     date: string,
     candleCount: number,
-    time: string
+    timeStr: string
   ) {
-    it(`should return null when it's Chanukah for date ${date}`, () => {
+    it(`should return right HebCal and location data when it's Chanukah for date ${date}`, () => {
       const city = "Chicago";
-      const input = {
+      const input: LocationHebCalResult = {
+        geoname_id: "12345",
         city,
         items: sampleApiResponse,
-        todayDate: date
+        now: moment(date)
       };
       const response = extractLightingInfo(input);
-      expect(response).toEqual({ count: candleCount, time, location: city });
+      expect(response).toEqual({
+        count: candleCount,
+        timeStr,
+        location: city,
+        date: ""
+      });
     });
   }
 
