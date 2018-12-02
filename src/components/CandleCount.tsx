@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import find from "lodash/find";
 import moment, { Moment } from "moment";
-import { config } from "dotenv";
-
-config();
 
 const locationUrl =
   "https://api.ipgeolocation.io/ipgeo?apiKey=540aeef7e13540ecbfad5d2023d5998c";
