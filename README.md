@@ -12,6 +12,7 @@
 - [ ] Add nusach Sefarad
 - [ ] Add nusach Edut HaMizrach
 - [ ] Add Octocat icon to link to repo on GitHub
+- [ ] Add credit to HebCal and ipgeolocation
 
 ### Fixes
 
