@@ -13,6 +13,8 @@
 - [ ] Add nusach Edut HaMizrach
 - [ ] Add Octocat icon to link to repo on GitHub
 - [ ] Add credit to HebCal and ipgeolocation
+- [ ] Make Menorah display correct number of candles to light for the evening
+- [ ] Revamp Menorah in SVG, with more concordant colours
 
 ### Fixes
 
