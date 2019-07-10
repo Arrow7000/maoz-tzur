@@ -1,28 +1,29 @@
 {
-  "name": "maoz-tzur-react",
+  "name": "maoz-tzur",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "2.1.1"
+    "parcel-bundler": "^1.12.3",
+    "react-scripts": "3.0.1"
   },
   "dependencies": {
     "@types/jest": "^23.3.9",
     "@types/lodash": "^4.14.118",
     "@types/node": "^10.12.9",
-    "@types/react": "^16.7.6",
-    "@types/react-dom": "^16.0.9",
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.4",
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "moment": "^2.15.2",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-testing-library": "^5.2.3",
     "styled-components": "^4.1.1",
     "typescript": "^3.1.6",
     "whatwg-fetch": "^1.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "parcel public/index.html --open",
     "build": "react-scripts build && cp _redirects build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
