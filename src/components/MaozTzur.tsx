@@ -1,16 +1,14 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import "./MaozTzur.css";
 import content, {
   Language,
   Nusach,
-  AttributeSection,
   hebrew,
   ashkenaz,
-  Selection,
-  AllAttributes,
-  Attribute
+  languages,
+  nusachim
 } from "./../MaozTzurContent";
-import Selector from "./Selector";
+import { Selector } from "./Selector";
 import CandleCount from "./CandleCount";
 import Menorah from "./Menorah";
 import Section from "./Section";
@@ -18,62 +16,34 @@ import Footer from "./Footer";
 
 import HebrewEnglishCompare from "./HebrewEnglishCompare";
 
-interface Props {}
-interface State {
-  languages: AttributeSection<Language>[];
-  nusachim: AttributeSection<Nusach>[];
-  selected: Selection;
-}
-class MaozTzur extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+export function MaozTzur() {
+  const [language, setLang] = useState<Language>(hebrew);
+  const [nusach, setNusach] = useState<Nusach>(ashkenaz);
 
-    this.state = {
-      languages: content.languages,
-      nusachim: content.nusachim,
-      selected: {
-        language: hebrew,
-        nusach: ashkenaz
-      }
-    };
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     console.log(
       "Hi there fellow developer 👋\nCheck out my other projects at https://github.com/Arrow7000"
     );
-  }
+  }, []);
 
-  selectHandler(type: Attribute, selection: AllAttributes) {
-    const newSel = { ...this.state.selected, [type]: selection };
-    this.setState({ selected: newSel });
-  }
-  render() {
-    const { language, nusach } = this.state.selected;
-
-    return (
-      <section className="MaozTzur">
-        <div className="MaozTzur__inner">
-          <Menorah />
-          <CandleCount />
-          {content[language][nusach].map(section => (
-            <Section
-              section={section}
-              key={section.title}
-              language={this.state.selected.language}
-            />
-          ))}
-          <Footer />
-        </div>
-        <Selector
-          selected={this.state.selected}
-          languages={this.state.languages}
-          nusachot={this.state.nusachim}
-          handler={this.selectHandler.bind(this)}
-        />
-      </section>
-    );
-  }
+  return (
+    <section className="MaozTzur">
+      <div className="MaozTzur__inner">
+        <Menorah />
+        <CandleCount />
+        {content[language][nusach].map(section => (
+          <Section section={section} key={section.title} language={language} />
+        ))}
+        <Footer />
+      </div>
+      <Selector
+        selectedLang={language}
+        selectedNusach={nusach}
+        languages={languages}
+        nusachot={nusachim}
+        setLang={setLang}
+        setNusach={setNusach}
+      />
+    </section>
+  );
 }
-
-export default MaozTzur;

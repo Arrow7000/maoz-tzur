@@ -1,62 +1,35 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { Setter, ButtonRow } from "./ButtonRow";
+import { AttributeSection, Language, Nusach } from "../MaozTzurContent";
 import "./Selector.css";
-import ButtonRow from "./ButtonRow";
-import {
-  AttributeSection,
-  Language,
-  Nusach,
-  Selection,
-  ChangeSelect
-} from "../MaozTzurContent";
 
 interface Props {
   nusachot: AttributeSection<Nusach>[];
   languages: AttributeSection<Language>[];
-  selected: Selection;
-  handler: ChangeSelect;
+
+  selectedLang: Language;
+  selectedNusach: Nusach;
+  setLang: Setter<Language>;
+  setNusach: Setter<Nusach>;
 }
-interface State {
-  open: boolean;
-}
 
-class Selector extends Component<Props, State> {
-  constructor(p: Props) {
-    super(p);
-    this.state = { open: false };
+export function Selector({ languages, selectedLang, setLang }: Props) {
+  const [open, setOpen] = useState(false);
+  const toggleOpen = () => setOpen(o => !o);
 
-    this.toggleOpen = this.toggleOpen.bind(this);
-  }
-  toggleOpen() {
-    this.setState({ open: !this.state.open });
-  }
-  render() {
-    const { nusachot, languages, selected, handler } = this.props;
-
-    return (
-      <div
-        className={`Selector Selector--${this.state.open ? "open" : "closed"}`}
-      >
-        <button className="Selector__opener" onClick={this.toggleOpen}>
-          Aא
-        </button>
-        <div className="Selector__switches">
-          <ButtonRow
-            selectors={languages}
-            type="language"
-            active={selected.language}
-            handler={handler}
-          />
-        </div>
+  return (
+    <div className={`Selector Selector--${open ? "open" : "closed"}`}>
+      <button className="Selector__opener" onClick={toggleOpen}>
+        Aא
+      </button>
+      <div className="Selector__switches">
+        <ButtonRow
+          options={languages}
+          type="language"
+          active={selectedLang}
+          setter={setLang}
+        />
       </div>
-    );
-  }
+    </div>
+  );
 }
-
-// // Selector for languages
-// <ButtonRow
-// 	selectors={nusachot}
-// 	type="nusach"
-// 	active={this.props.selected.nusach}
-// 	handler={this.props.handler} />
-
-export default Selector;

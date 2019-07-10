@@ -27,7 +27,7 @@ export interface ContentSection {
 export type NusachimSection = { [l in Nusach]: ContentSection[] };
 export type LangSection = { [l in Language]: NusachimSection };
 
-export interface AttributeSection<T> {
+export interface AttributeSection<T extends string> {
   label: string;
   tag: T;
 }
@@ -37,38 +37,35 @@ export interface Selection {
   nusach: Nusach;
 }
 
-export interface Content extends LangSection {
-  nusachim: AttributeSection<Nusach>[];
-  languages: AttributeSection<Language>[];
-}
-
 export type ChangeSelect = (type: Attribute, selection: AllAttributes) => void;
 
-const content: Content = {
-  nusachim: [
-    {
-      label: "Nusach Ashkenaz",
-      tag: "ashkenaz"
-    },
-    {
-      label: "Nusach Sefarad",
-      tag: "sefarad"
-    },
-    {
-      label: "Edut Hamizrach",
-      tag: "sefaradi"
-    }
-  ],
-  languages: [
-    {
-      label: "English",
-      tag: "english"
-    },
-    {
-      label: "Hebrew",
-      tag: "hebrew"
-    }
-  ],
+export const nusachim: AttributeSection<Nusach>[] = [
+  {
+    label: "Nusach Ashkenaz",
+    tag: "ashkenaz"
+  },
+  {
+    label: "Nusach Sefarad",
+    tag: "sefarad"
+  },
+  {
+    label: "Edut Hamizrach",
+    tag: "sefaradi"
+  }
+];
+
+export const languages: AttributeSection<Language>[] = [
+  {
+    label: "English",
+    tag: "english"
+  },
+  {
+    label: "Hebrew",
+    tag: "hebrew"
+  }
+];
+
+const content: LangSection = {
   hebrew: {
     ashkenaz: [
       {

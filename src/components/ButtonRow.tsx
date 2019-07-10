@@ -1,48 +1,40 @@
-import React, { Component } from "react";
+import React from "react";
+import { AttributeSection } from "../MaozTzurContent";
 import "./ButtonRow.css";
-import {
-  AttributeSection,
-  Language,
-  Nusach,
-  Attribute,
-  AllAttributes,
-  ChangeSelect
-} from "../MaozTzurContent";
 
-interface Props {
-  selectors: AttributeSection<Language | Nusach>[];
-  type: Attribute;
-  active: AllAttributes;
-  handler: ChangeSelect;
+export type Setter<T> = (t: T) => void;
+
+interface Props<T extends string> {
+  options: AttributeSection<T>[];
+  type: string;
+  active: T;
+  setter: Setter<T>;
 }
 
-class ButtonRow extends Component<Props> {
-  click(tag: AllAttributes) {
-    // console.log(this.props.type, tag);
-    this.props.handler(this.props.type, tag);
-  }
-  render() {
-    return (
-      <div className="ButtonRow">
-        <div className="ButtonRow__center">
-          {this.props.selectors.map(sel => {
-            const isActive = sel.tag === this.props.active;
-            return (
-              <button
-                className={`ButtonRow__button ${
-                  isActive ? "selected" : ""
-                } ButtonRow__button--${this.props.type} `}
-                onClick={() => this.click(sel.tag)}
-                key={sel.tag}
-              >
-                {sel.label}
-              </button>
-            );
-          })}
-        </div>
+export function ButtonRow<T extends string>({
+  setter,
+  options,
+  type,
+  active
+}: Props<T>) {
+  return (
+    <div className="ButtonRow">
+      <div className="ButtonRow__center">
+        {options.map(sel => {
+          const isActive = sel.tag === active;
+          return (
+            <button
+              className={`ButtonRow__button ${
+                isActive ? "selected" : ""
+              } ButtonRow__button--${type} `}
+              onClick={() => setter(sel.tag)}
+              key={sel.tag}
+            >
+              {sel.label}
+            </button>
+          );
+        })}
       </div>
-    );
-  }
+    </div>
+  );
 }
-
-export default ButtonRow;
