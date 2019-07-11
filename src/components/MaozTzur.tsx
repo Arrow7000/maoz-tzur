@@ -9,7 +9,7 @@ import content, {
   nusachim
 } from "./../MaozTzurContent";
 import { Selector } from "./Selector";
-import CandleCount from "./CandleCount";
+import { CandleCountWithBoundary } from "./CandleCount";
 import Menorah from "./Menorah";
 import Section from "./Section";
 import Footer from "./Footer";
@@ -30,7 +30,7 @@ export function MaozTzur() {
     <section className="MaozTzur">
       <div className="MaozTzur__inner">
         <Menorah />
-        <CandleCount />
+        <CandleCountWithBoundary />
         {content[language][nusach].map(section => (
           <Section section={section} key={section.title} language={language} />
         ))}
