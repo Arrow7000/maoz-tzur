@@ -9,7 +9,7 @@ import content, {
   nusachim
 } from "./../MaozTzurContent";
 import { Selector } from "./Selector";
-import { CandleCountWithBoundary } from "./CandleCount";
+import { CandleCountWithBoundary } from "./CandleCount/CandleCount";
 import Menorah from "./Menorah";
 import Section from "./Section";
 import Footer from "./Footer";
