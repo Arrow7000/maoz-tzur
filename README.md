@@ -12,13 +12,13 @@
 - [ ] Add nusach Sefarad
 - [ ] Add nusach Edut HaMizrach
 - [ ] Add Octocat icon to link to repo on GitHub
-- [ ] Add credit to HebCal and ipgeolocation
+- [ ] Add credit to HebCal
 - [ ] Make Menorah display correct number of candles to light for the evening
 - [ ] Revamp Menorah in SVG, with more concordant colours
 
 ### Fixes
 
-- [ ] Make location more reliable
+- [x] Make location more reliable
     - Potentially by using browser Geolocation API
 - [ ] Make version/language button more visible
     - Potentially by brief flash or open upon page load
