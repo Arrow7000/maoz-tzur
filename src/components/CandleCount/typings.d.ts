@@ -1,29 +1,8 @@
+type Timezone = string;
+
 interface LightingInfo {
   count: number;
-  // timeStr: string;
   lightingTime: Date;
-}
-
-interface FullLightingInfo extends LightingInfo {
-  location: string;
-}
-
-interface LocationInfo {
-  geoname_id: string;
-  city: string;
-  latitude: string;
-  longitude: string;
-  time_zone: { name: string };
-}
-
-/**
- * From IPGeolocation timezone API
- */
-interface PreciseLocationInfo {
-  latitude: number;
-  longitude: number;
-  tzId: string;
-  cityName: string;
 }
 
 /**
@@ -43,13 +22,6 @@ interface HebCalResponse {
   items: HebCalItem[];
 }
 
-interface LocationHebCalResult {
-  geoname_id: string;
-  city: string;
-  items: HebCalItem[];
-  now: Date;
-}
-
 /**
  * From Google Maps Reverse Geocoding API
  */
@@ -63,23 +35,6 @@ interface AddressComponent {
 interface GeocodingResult {
   address_components: AddressComponent[];
   formatted_address: string;
-  geometry: {
-    //  "location" : {
-    //     "lat" : 40.714232,
-    //     "lng" : -73.9612889
-    //  },
-    //  "location_type" : "ROOFTOP",
-    //  "viewport" : {
-    //     "northeast" : {
-    //        "lat" : 40.7155809802915,
-    //        "lng" : -73.9599399197085
-    //     },
-    //     "southwest" : {
-    //        "lat" : 40.7128830197085,
-    //        "lng" : -73.96263788029151
-    //     }
-    //  }
-  };
   place_id: string;
   types: string[];
 }
@@ -90,3 +45,15 @@ type GeocodingApiResponse =
       results: GeocodingResult[];
     }
   | { status: "ZERO_RESULTS"; results: [] };
+
+type TonightChanukahData =
+  | {
+      label: "Chanukah";
+      candleCount: number; // 1 <= x <= 8
+      cityName: string | null;
+      candleLightingTime: { day: "Weekday"; time: Date } | { day: "Friday" };
+    }
+  | {
+      label: "NotChanukah";
+      daysUntilChanukah: number;
+    };

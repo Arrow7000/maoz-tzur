@@ -1,12 +1,8 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, FC } from "react";
 import moment from "moment";
-import {
-  makeLocationAndHebcalReqs,
-  // extractLightingInfo,
-  // getGeoLocation,
-  getTodayChanukahEvent
-} from "./CandleCountHelpers";
+import { getTodayChanukahEvent } from "./CandleCountHelpers";
 import { getCurrentPosition } from "./getCurrentPosition";
+import { useLocalStorage, pluralise } from "./helpers";
 
 const prevAskedForGeoKey = "askedGeo";
 
@@ -16,13 +12,16 @@ enum NoGeoReason {
   AllowedButUnable
 }
 
-// maybe use this because it allows attaching custom information for each state and makes illegal states unrepresentable
+/**
+ * Discriminated union allows attaching custom information for each state and
+ * makes illegal states unrepresentable
+ */
 type StateDiscrUnion =
   // | { label: "NotChanukahOrUnsure" }
   | { label: "NoGeo"; reason: NoGeoReason }
   | { label: "ChanukahReqsInProgress" } // when cityName and lightingTime reqs are in progress
   | { label: "ChanukahReqsFailed" } // when cityName and lightingTime reqs are in progress
-  | { label: "NotChanukah" } // when cityName and lightingTime reqs are in progress
+  | { label: "NotChanukah"; daysUntilChanukah: number }
   | {
       label: "ChanukahReqComplete";
       candleCount: number;
@@ -30,39 +29,42 @@ type StateDiscrUnion =
       cityName: string | null;
     };
 
-function CandleCount() {
-  const timezoneId = Intl.DateTimeFormat().resolvedOptions().timeZone; // used in Hebcal API
-  const allowedPreviously = !!localStorage.getItem(prevAskedForGeoKey);
+const Text: FC = ({ children }) => <h3>{children}</h3>;
 
-  const initialState: StateDiscrUnion = allowedPreviously
+function CandleCount() {
+  const [previouslyAsked, setPreviouslyAsked] = useLocalStorage(
+    prevAskedForGeoKey
+  );
+
+  const initialState: StateDiscrUnion = previouslyAsked
     ? { label: "ChanukahReqsInProgress" }
     : { label: "NoGeo", reason: NoGeoReason.NotAsked };
 
   const [state, setState] = useState<StateDiscrUnion>(initialState);
 
   useEffect(() => {
-    if (allowedPreviously) {
-      getLocationAndSetState();
-    }
+    if (previouslyAsked) getLocationAndSetState();
   }, []);
 
   async function getLocationAndSetState() {
     setState({ label: "ChanukahReqsInProgress" });
-    localStorage.setItem(prevAskedForGeoKey, "1");
+    setPreviouslyAsked("1");
 
     const result = await getCurrentPosition();
 
     if (result.type === "Success") {
-      // result.coordinates
-      const tonightChanukahOpt = await getTodayChanukahEvent(
+      const timezoneId = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      const tonightChanukah = await getTodayChanukahEvent(
         new Date(),
         result.coordinates,
         timezoneId
       );
-      if (tonightChanukahOpt) {
-        setState({ label: "ChanukahReqComplete", ...tonightChanukahOpt });
-      } else {
-        setState({ label: "NotChanukah" });
+
+      if (tonightChanukah.label === "Chanukah") {
+        setState({ ...tonightChanukah, label: "ChanukahReqComplete" });
+      } else if (tonightChanukah.label === "NotChanukah") {
+        setState(tonightChanukah);
       }
     } else {
       const { reason } = result;
@@ -89,48 +91,61 @@ function CandleCount() {
 
         case NoGeoReason.AllowedButUnable:
           return (
-            <h1>
+            <Text>
               Couldn't retrieve your location right now. Please try again later.
-            </h1>
+            </Text>
           );
 
         case NoGeoReason.Disallowed:
           return (
-            <h1>
-              Location data not granted. Reset your website permissions to get
-              lighting information.
-            </h1>
+            <Text>
+              Location data was not granted. Reset your website permissions to
+              display lighting information.
+            </Text>
           );
       }
     case "ChanukahReqsInProgress":
-      return <h1>Retrieving information for your location...</h1>;
+      return <Text>Retrieving information for your location...</Text>;
     case "ChanukahReqsFailed":
       return (
-        <h1>
-          Couldn't retrieve information for your location right now. Please try
+        <Text>
+          Could not retrieve information for your location right now. Please try
           again later.
-        </h1>
+        </Text>
       );
     case "NotChanukah":
-      return <h1>It is not Chanukah tonight.</h1>;
+      const { daysUntilChanukah } = state;
+
+      return (
+        <Text>
+          It is {daysUntilChanukah} day{pluralise(daysUntilChanukah)} until the
+          first night of Chanukah! 🕎
+        </Text>
+      );
     case "ChanukahReqComplete":
-      const { candleLightingTime, cityName } = state;
-      const displayCityName = cityName ? `for ${cityName}` : `in your location`;
+      const { candleLightingTime, cityName, candleCount } = state;
+      const displayCityName = cityName || `your location`;
 
       if (candleLightingTime.day === "Weekday") {
         return (
-          <h1>
-            Lighting time {displayCityName} tonight is{" "}
-            {moment(candleLightingTime.time).format("h:mm A")}
-          </h1>
+          <Text>
+            In {displayCityName} one lights {candleCount} candle
+            {pluralise(candleCount)} at{" "}
+            {moment(candleLightingTime.time).format("h:mm A")} tonight
+          </Text>
         );
       } else {
         return (
-          <h1>
-            The Chanukah lighting time {displayCityName} is just before the time
-            of lighting Shabbat candles, the time of which will depend on your
-            city's custom.
-          </h1>
+          <>
+            <Text>
+              One lights {candleCount} candle{pluralise(candleCount)} today.
+            </Text>
+            <Text>
+              The Chanukah lighting time on Fridays is just before the time of
+              lighting Shabbat candles, the exact time of which will depend on
+              the local custom in {displayCityName}.
+            </Text>
+          </>
         );
       }
   }
@@ -140,19 +155,13 @@ function CandleCount() {
  * Class component wrapper for error boundary
  */
 
-interface ErrorHaver {
-  hasError: boolean;
-}
+export class CandleCountWithBoundary extends Component<
+  {},
+  { hasError: boolean }
+> {
+  state = { hasError: false };
 
-export class CandleCountWithBoundary extends Component<{}, ErrorHaver> {
-  constructor(props: {}) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
+  static getDerivedStateFromError = () => ({ hasError: true });
 
   render() {
     if (this.state.hasError) {
@@ -162,3 +171,17 @@ export class CandleCountWithBoundary extends Component<{}, ErrorHaver> {
     }
   }
 }
+
+/**
+ * @TODOs:
+ * - style geolocation button
+ * - style text
+ * - add different nusachim
+ *    - get from rabbi roselaar's links
+ *    - add nusach selector buttons
+ *    - make button clearer
+ *    - maybe have popup to point towards nusach selector
+ * - make chanukah in svg
+ * - make chanukah display right number of candles
+ * - add tests for new functions!
+ */
