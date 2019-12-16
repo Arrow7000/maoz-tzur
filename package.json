@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "parcel public/index.html --open",
-    "build": "react-scripts build && cp _redirects build",
+    "build": "parcel build public/index.html && cp _redirects build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
