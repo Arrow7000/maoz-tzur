@@ -3,6 +3,8 @@ import moment from "moment";
 import { getTodayChanukahEvent } from "./CandleCountHelpers";
 import { getCurrentPosition } from "./getCurrentPosition";
 import { useLocalStorage, pluralise } from "./helpers";
+import { Button } from "./Button";
+import { CandleCountContainer } from "./CandleCountContainer";
 
 const prevAskedForGeoKey = "askedGeo";
 
@@ -17,10 +19,9 @@ enum NoGeoReason {
  * makes illegal states unrepresentable
  */
 type StateDiscrUnion =
-  // | { label: "NotChanukahOrUnsure" }
   | { label: "NoGeo"; reason: NoGeoReason }
   | { label: "ChanukahReqsInProgress" } // when cityName and lightingTime reqs are in progress
-  | { label: "ChanukahReqsFailed" } // when cityName and lightingTime reqs are in progress
+  | { label: "ChanukahReqsFailed" }
   | { label: "NotChanukah"; daysUntilChanukah: number }
   | {
       label: "ChanukahReqComplete";
@@ -29,7 +30,7 @@ type StateDiscrUnion =
       cityName: string | null;
     };
 
-const Text: FC = ({ children }) => <h3>{children}</h3>;
+const Text: FC = props => <h3 {...props} />;
 
 function CandleCount() {
   const [previouslyAsked, setPreviouslyAsked] = useLocalStorage(
@@ -55,16 +56,21 @@ function CandleCount() {
     if (result.type === "Success") {
       const timezoneId = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-      const tonightChanukah = await getTodayChanukahEvent(
-        new Date(),
-        result.coordinates,
-        timezoneId
-      );
+      try {
+        const tonightChanukah = await getTodayChanukahEvent(
+          new Date(),
+          result.coordinates,
+          timezoneId
+        );
 
-      if (tonightChanukah.label === "Chanukah") {
-        setState({ ...tonightChanukah, label: "ChanukahReqComplete" });
-      } else if (tonightChanukah.label === "NotChanukah") {
-        setState(tonightChanukah);
+        if (tonightChanukah.label === "Chanukah") {
+          setState({ ...tonightChanukah, label: "ChanukahReqComplete" });
+        } else if (tonightChanukah.label === "NotChanukah") {
+          setState(tonightChanukah);
+        }
+      } catch (error) {
+        setState({ label: "ChanukahReqsFailed" });
+        console.log(error);
       }
     } else {
       const { reason } = result;
@@ -84,9 +90,9 @@ function CandleCount() {
       switch (reason) {
         case NoGeoReason.NotAsked:
           return (
-            <button onClick={getLocationAndSetState}>
+            <Button onClick={getLocationAndSetState}>
               Use your location to get candle lighting times
-            </button>
+            </Button>
           );
 
         case NoGeoReason.AllowedButUnable:
@@ -155,20 +161,17 @@ function CandleCount() {
  * Class component wrapper for error boundary
  */
 
-export class CandleCountWithBoundary extends Component<
-  {},
-  { hasError: boolean }
-> {
+export class CandleCountWithBoundary extends Component<{ hasError: boolean }> {
   state = { hasError: false };
 
   static getDerivedStateFromError = () => ({ hasError: true });
 
   render() {
-    if (this.state.hasError) {
-      return null;
-    } else {
-      return <CandleCount />;
-    }
+    return (
+      <CandleCountContainer>
+        {!this.state.hasError && <CandleCount />}
+      </CandleCountContainer>
+    );
   }
 }
 
