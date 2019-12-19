@@ -5,7 +5,7 @@ function Footer() {
   return (
     <section className="Footer" id="footer">
       <p className="credits">
-        Website by{" "}
+        Made with ❤ by{" "}
         <a href="https://adler.dev" target="_blank">
           Aron Adler
         </a>
