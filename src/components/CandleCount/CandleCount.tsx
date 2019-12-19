@@ -5,6 +5,7 @@ import { getCurrentPosition } from "./getCurrentPosition";
 import { useLocalStorage, pluralise } from "./helpers";
 import { Button } from "./Button";
 import { CandleCountContainer } from "./CandleCountContainer";
+import { captureException } from "@sentry/browser";
 
 const prevAskedForGeoKey = "askedGeo";
 
@@ -44,8 +45,17 @@ function CandleCount() {
   const [state, setState] = useState<StateDiscrUnion>(initialState);
 
   useEffect(() => {
-    if (previouslyAsked) getLocationAndSetState();
+    if (previouslyAsked) {
+      // run immediately
+      getLocationAndSetState();
+    }
   }, []);
+
+  useEffect(() => {
+    if (state.label === "ChanukahReqsFailed") {
+      getLocationAndSetState();
+    }
+  }, [state]);
 
   async function getLocationAndSetState() {
     setState({ label: "ChanukahReqsInProgress" });
@@ -70,7 +80,7 @@ function CandleCount() {
         }
       } catch (error) {
         setState({ label: "ChanukahReqsFailed" });
-        console.log(error);
+        captureException(error);
       }
     } else {
       const { reason } = result;
@@ -161,7 +171,10 @@ function CandleCount() {
  * Class component wrapper for error boundary
  */
 
-export class CandleCountWithBoundary extends Component<{ hasError: boolean }> {
+export class CandleCountWithBoundary extends Component<
+  {},
+  { hasError: boolean }
+> {
   state = { hasError: false };
 
   static getDerivedStateFromError = () => ({ hasError: true });
