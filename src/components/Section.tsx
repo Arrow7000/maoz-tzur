@@ -1,38 +1,42 @@
-import React, { Component } from "react";
+import React from "react";
 import "./Section.css";
-import { ContentSection, Language } from "../MaozTzurContent";
+import { isAllContent } from "../content";
 
 interface Props {
   section: ContentSection;
-  language: Language;
+  nusach: Nusach;
 }
 
-function Section({ section, language }: Props) {
-  const title = section.title;
-  const subtitle = section.subtitle;
-  const content = section.content;
+function Section({ section, nusach }: Props) {
+  const { title, subtitle, content } = section;
 
   return (
-    <section className="Section">
+    <div className="Section">
       <div className="title">
         {title && <h3>{title}</h3>}
         {subtitle && <h4>{subtitle}</h4>}
       </div>
       <div className="text__area">
-        {content.map(item => {
-          const title = item.title ? (
-            <h6 className="title title--text">{item.title}</h6>
-          ) : null;
+        {content.map((item, i) => {
+          const subContent = isAllContent(item.texts)
+            ? item.texts.all
+            : item.texts[nusach];
 
           return (
-            <div key={item.text}>
-              {title}
-              <p className={`text ${language}`}> {item.text}</p>
+            <div key={i}>
+              {item.title ? (
+                <h6 className="title title--text">{item.title}</h6>
+              ) : null}
+              {subContent.map(item => (
+                <p key={item} className={`text ${"hebrew"}`}>
+                  {item}
+                </p>
+              ))}
             </div>
           );
         })}
       </div>
-    </section>
+    </div>
   );
 }
 

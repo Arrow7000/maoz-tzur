@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import { Setter, ButtonRow } from "./ButtonRow";
-import { AttributeSection, Language, Nusach } from "../MaozTzurContent";
+import { ButtonRow } from "./ButtonRow";
 import "./Selector.css";
 
 interface Props {
-  nusachot: AttributeSection<Nusach>[];
-  languages: AttributeSection<Language>[];
-
-  selectedLang: Language;
   selectedNusach: Nusach;
-  setLang: Setter<Language>;
+  nusachimOptions: Option<Nusach>[];
   setNusach: Setter<Nusach>;
 }
 
-export function Selector({ languages, selectedLang, setLang }: Props) {
+export function Selector({
+  nusachimOptions,
+  selectedNusach,
+  setNusach
+}: Props) {
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen(o => !o);
 
@@ -24,10 +23,10 @@ export function Selector({ languages, selectedLang, setLang }: Props) {
       </button>
       <div className="Selector__switches">
         <ButtonRow
-          options={languages}
+          options={nusachimOptions}
           type="language"
-          active={selectedLang}
-          setter={setLang}
+          active={selectedNusach}
+          setter={setNusach}
         />
       </div>
     </div>

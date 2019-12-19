@@ -1,11 +1,8 @@
 import React from "react";
-import { AttributeSection } from "../MaozTzurContent";
 import "./ButtonRow.css";
 
-export type Setter<T> = (t: T) => void;
-
-interface Props<T extends string> {
-  options: AttributeSection<T>[];
+interface Props<T> {
+  options: Option<T>[];
   type: string;
   active: T;
   setter: Setter<T>;
@@ -21,14 +18,15 @@ export function ButtonRow<T extends string>({
     <div className="ButtonRow">
       <div className="ButtonRow__center">
         {options.map(sel => {
-          const isActive = sel.tag === active;
+          const isActive = sel.value === active;
+
           return (
             <button
               className={`ButtonRow__button ${
                 isActive ? "selected" : ""
               } ButtonRow__button--${type} `}
-              onClick={() => setter(sel.tag)}
-              key={sel.tag}
+              onClick={() => setter(sel.value)}
+              key={sel.value}
             >
               {sel.label}
             </button>

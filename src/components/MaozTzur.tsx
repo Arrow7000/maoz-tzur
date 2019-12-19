@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./MaozTzur.css";
-import content, {
-  Language,
-  Nusach,
-  hebrew,
-  ashkenaz,
-  languages,
-  nusachim
-} from "./../MaozTzurContent";
+import { content } from "../content";
 import { Selector } from "./Selector";
 import { CandleCountWithBoundary } from "./CandleCount/CandleCount";
 import Menorah from "./Menorah";
 import Section from "./Section";
 import Footer from "./Footer";
 
-import HebrewEnglishCompare from "./HebrewEnglishCompare";
-
 export function MaozTzur() {
-  const [language, setLang] = useState<Language>(hebrew);
-  const [nusach, setNusach] = useState<Nusach>(ashkenaz);
+  const [nusach, setNusach] = useState<Nusach>("sefardi");
+
+  const nusachim: Option<Nusach>[] = [
+    { label: "Ashkenaz", value: "ashkenaz" },
+    { label: "Sefardi", value: "sefardi" }
+  ];
 
   useEffect(() => {
     console.log(
@@ -31,17 +26,14 @@ export function MaozTzur() {
       <div className="MaozTzur__inner">
         <Menorah />
         <CandleCountWithBoundary />
-        {content[language][nusach].map(section => (
-          <Section section={section} key={section.title} language={language} />
+        {content.map(section => (
+          <Section key={section.title} section={section} nusach={nusach} />
         ))}
         <Footer />
       </div>
       <Selector
-        selectedLang={language}
         selectedNusach={nusach}
-        languages={languages}
-        nusachot={nusachim}
-        setLang={setLang}
+        nusachimOptions={nusachim}
         setNusach={setNusach}
       />
     </section>
