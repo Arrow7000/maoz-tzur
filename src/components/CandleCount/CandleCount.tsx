@@ -2,10 +2,11 @@ import React, { Component, useState, useEffect, FC } from "react";
 import moment from "moment";
 import { getTodayChanukahEvent } from "./CandleCountHelpers";
 import { getCurrentPosition } from "./getCurrentPosition";
-import { useLocalStorage, pluralise } from "./helpers";
+import { pluralise } from "./helpers";
 import { Button } from "./Button";
 import { CandleCountContainer } from "./CandleCountContainer";
 import { captureException } from "@sentry/browser";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const prevAskedForGeoKey = "askedGeo";
 

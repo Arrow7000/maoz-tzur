@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import moment from "moment";
 
 export function getInOrderOfPreference<T, V>(
@@ -14,23 +14,6 @@ export function getInOrderOfPreference<T, V>(
       return found ?? null;
     }
   }, null);
-}
-
-export function useLocalStorage(
-  key: string,
-  defaultValue?: string
-): [string | undefined, (val: string) => void] {
-  const value = localStorage.getItem(key) || defaultValue;
-
-  const [stateValue, setStateValue] = useState(value);
-
-  const setter = (newValue: string) => {
-    localStorage.setItem(key, newValue);
-  };
-
-  if (stateValue) setter(stateValue);
-
-  return [stateValue, setter];
 }
 
 export const pluralise = (n: number) => (n === 1 ? "" : "s");

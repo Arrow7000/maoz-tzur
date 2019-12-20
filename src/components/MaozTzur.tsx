@@ -6,13 +6,32 @@ import { CandleCountWithBoundary } from "./CandleCount/CandleCount";
 import Menorah from "./Menorah";
 import Section from "./Section";
 import Footer from "./Footer";
+import { isNusach } from "../helpers";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+
+const savedNusachKey = "savedNusach";
 
 export function MaozTzur() {
-  const [nusach, setNusach] = useState<Nusach>("sefardi");
+  const [savedNusach, setSavedNusach] = useLocalStorage(savedNusachKey);
+  const defaultNusach = isNusach(savedNusach) ? savedNusach : null;
+
+  useEffect(() => {
+    if (!defaultNusach) {
+      setSavedNusach(); // clear it if invalid
+    }
+  }, []);
+
+  const [nusach, setNusach] = useState<Nusach>(defaultNusach ?? "ashkenaz");
+
+  const changeNusach = (newNusach: Nusach) => {
+    setNusach(newNusach);
+    setSavedNusach(newNusach);
+  };
 
   const nusachim: Option<Nusach>[] = [
     { label: "Ashkenaz", value: "ashkenaz" },
-    { label: "Sefardi", value: "sefardi" }
+    { label: "Sefardi", value: "sefardi" },
+    { label: "Chabad", value: "chabad" }
   ];
 
   useEffect(() => {
@@ -34,7 +53,7 @@ export function MaozTzur() {
       <Selector
         selectedNusach={nusach}
         nusachimOptions={nusachim}
-        setNusach={setNusach}
+        setNusach={changeNusach}
       />
     </section>
   );

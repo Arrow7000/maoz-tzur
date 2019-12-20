@@ -1,6 +1,7 @@
 interface ContentVersions {
   ashkenaz: string[];
   sefardi: string[];
+  chabad: string[];
 }
 
 type Nusach = keyof ContentVersions;
