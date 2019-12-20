@@ -35,9 +35,14 @@ type StateDiscrUnion =
 const Text: FC = props => <h3 {...props} />;
 
 function CandleCount() {
+  const maxAttempts = 3;
+  const [attemptsCount, setAttemptsCount] = useState(0);
+
   const [previouslyAsked, setPreviouslyAsked] = useLocalStorage(
     prevAskedForGeoKey
   );
+
+  const [askedPermission, setAskedPermission] = useState(!!previouslyAsked);
 
   const initialState: StateDiscrUnion = previouslyAsked
     ? { label: "ChanukahReqsInProgress" }
@@ -46,21 +51,29 @@ function CandleCount() {
   const [state, setState] = useState<StateDiscrUnion>(initialState);
 
   useEffect(() => {
-    if (previouslyAsked) {
-      // run immediately
+    if (askedPermission) {
       getLocationAndSetState();
+      setPreviouslyAsked("1");
     }
-  }, []);
+  }, [askedPermission]); // need to rethink this so we don't get into an infinite loop
 
   useEffect(() => {
-    if (state.label === "ChanukahReqsFailed") {
-      getLocationAndSetState();
+    if (
+      askedPermission &&
+      state.label === "ChanukahReqsFailed" &&
+      attemptsCount < maxAttempts
+    ) {
+      setAttemptsCount(c => c + 1);
+
+      setTimeout(() => {
+        getLocationAndSetState();
+        setPreviouslyAsked("1");
+      }, 1000 * 2 ** attemptsCount); // exponential backoff
     }
   }, [state]);
 
   async function getLocationAndSetState() {
     setState({ label: "ChanukahReqsInProgress" });
-    setPreviouslyAsked("1");
 
     const result = await getCurrentPosition();
 
@@ -101,7 +114,7 @@ function CandleCount() {
       switch (reason) {
         case NoGeoReason.NotAsked:
           return (
-            <Button onClick={getLocationAndSetState}>
+            <Button onClick={() => setAskedPermission(true)}>
               Use your location to get candle lighting times
             </Button>
           );
