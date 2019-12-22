@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getInOrderOfPreference, momentDay } from "./helpers";
+import { captureException } from "@sentry/browser";
 
 const chanukahRegex = /^Chanukah: (\d) Candles?: (\d\d?:\d\dpm)$/;
 
@@ -55,6 +56,14 @@ export async function getTodayChanukahEvent(
   const hebcalUrl = `https://www.hebcal.com/hebcal/?v=1&cfg=json&maj=on&min=off&mod=off&nx=off&year=now&month=x&ss=off&mf=off&c=on&geo=pos&m=0&s=off&latitude=${latitude}&longitude=${longitude}&tzid=${timezone}`;
 
   const { data } = await axios.get<HebCalResponse>(hebcalUrl);
+
+  if (!data.items) {
+    const jsonStr = JSON.stringify(data, null, 2);
+    const err = new Error(
+      `Expected HebCal data to have "items" property but instead has shape ${jsonStr}`
+    );
+    captureException(err);
+  }
 
   // change the 0 number to test various scenarios
   const todayMoment = momentDay(today).add(0, "days");
