@@ -5,4 +5,6 @@ export const CandleCountContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-left: 15px;
+  padding-right: 15px;
 `;
