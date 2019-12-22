@@ -19,7 +19,7 @@
 
 .text__area {
     background-color: #223;
-    padding: 10px 5px;
+    padding: 10px 15px;
     transition: background-color .1s, border-color .1s, color .1s;
 }
 
