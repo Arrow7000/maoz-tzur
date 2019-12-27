@@ -7,6 +7,7 @@ import { Button } from "./Button";
 import { CandleCountContainer } from "./CandleCountContainer";
 import { captureException } from "@sentry/browser";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import styled from "styled-components";
 
 const prevAskedForGeoKey = "askedGeo";
 
@@ -32,7 +33,10 @@ type StateDiscrUnion =
       cityName: string | null;
     };
 
-const Text: FC = props => <h3 {...props} />;
+const Text = styled.h3`
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+`;
 
 function CandleCount() {
   const maxAttempts = 3;
