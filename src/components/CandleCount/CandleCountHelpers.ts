@@ -1,17 +1,17 @@
 import axios from "axios";
-import { getInOrderOfPreference, momentDay } from "./helpers";
+import { getInOrderOfPreference, momentDay } from "../../helpers";
 import { captureException } from "@sentry/browser";
 
-const chanukahRegex = /^Chanukah: (\d) Candles?: (\d\d?:\d\dpm)$/;
+const candlesRegex = /^Chanukah: (\d) Candles?/;
+const eighthDayRegex = /^Chanukah: 8th Day$/;
 
 function getLightingInfoFromHebcalItem(item: HebCalItem): LightingInfo {
-  const regexResult = item.title.match(chanukahRegex);
+  const regexResult = item.title.match(candlesRegex);
 
   if (regexResult) {
     return {
       count: parseInt(regexResult[1]),
-      // timeStr: regexResult[2],
-      lightingTime: new Date(item.date)
+      lightingTime: new Date(item.date),
     };
   } else {
     throw new Error(
@@ -26,7 +26,7 @@ function getLightingInfoFromHebcalItem(item: HebCalItem): LightingInfo {
 
 async function getLocationInfo({
   latitude,
-  longitude
+  longitude,
 }: Coordinates): Promise<GeocodingResult | null> {
   const apiKey = "AIzaSyBOjCfj4s39EnTIynqE9n8VTG4BxwGxDKI";
   const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
@@ -66,16 +66,21 @@ export async function getTodayChanukahEvent(
   }
 
   // change the 0 number to test various scenarios
-  const todayMoment = momentDay(today).add(0, "days");
+  const todayMoment = momentDay(today).add(19, "days");
 
-  const chanukahDatedItems = data.items.filter(item =>
-    item.title.match(chanukahRegex)
+  const chanukahDatedItems = data.items.filter((item) =>
+    item.title.match(candlesRegex)
   );
 
   const chanukahTodayOpt =
-    chanukahDatedItems.find(item =>
+    chanukahDatedItems.find((item) =>
       momentDay(item.date).isSame(todayMoment, "day")
     ) || null;
+
+  const eighthDay = data.items.find((item) => item.title.match(eighthDayRegex));
+  const isEighthDay = eighthDay
+    ? momentDay(eighthDay.date).isSame(todayMoment, "day")
+    : false;
 
   if (chanukahTodayOpt) {
     // It's Chanukah, bitches 🕎
@@ -94,8 +99,10 @@ export async function getTodayChanukahEvent(
       candleLightingTime: itsFriday
         ? { day: "Friday" }
         : { day: "Weekday", time: lightingInfo.lightingTime },
-      cityName
+      cityName,
     };
+  } else if (isEighthDay) {
+    return { label: "8thDayChanukah" };
   } else {
     const diff = -todayMoment.diff(
       momentDay(chanukahDatedItems[0].date),

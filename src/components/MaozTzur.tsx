@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./MaozTzur.css";
 import { content } from "../content";
 import { Selector } from "./Selector";
-import { CandleCountWithBoundary } from "./CandleCount/CandleCount";
-import Menorah from "./Menorah";
+import { CandleCount, useGetCandleCount } from "./CandleCount/CandleCount";
+import { Menorah, numToDayMap } from "./Menorah";
 import Section from "./Section";
 import Footer from "./Footer";
 import { isNusach } from "../helpers";
@@ -31,8 +31,10 @@ export function MaozTzur() {
   const nusachim: Option<Nusach>[] = [
     { label: "Ashkenaz", value: "ashkenaz" },
     { label: "Sefardi", value: "sefardi" },
-    { label: "Chabad", value: "chabad" }
+    { label: "Chabad", value: "chabad" },
   ];
+
+  const [state, askLocationPermission] = useGetCandleCount();
 
   useEffect(() => {
     console.log(
@@ -43,9 +45,18 @@ export function MaozTzur() {
   return (
     <section className="MaozTzur">
       <div className="MaozTzur__inner">
-        <Menorah />
-        <CandleCountWithBoundary />
-        {content.map(section => (
+        <Menorah
+          day={
+            state.label === "ChanukahReqComplete"
+              ? numToDayMap[state.candleCount] ?? null
+              : null
+          }
+        />
+        <CandleCount
+          state={state}
+          askLocationPermission={askLocationPermission}
+        />
+        {content.map((section) => (
           <Section key={section.title} section={section} nusach={nusach} />
         ))}
         <Footer />
