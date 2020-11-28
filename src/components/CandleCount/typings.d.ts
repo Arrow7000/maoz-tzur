@@ -53,6 +53,7 @@ type TonightChanukahData =
       cityName: string | null;
       candleLightingTime: { day: "Weekday"; time: Date } | { day: "Friday" };
     }
+  | { label: "8thDayChanukah" }
   | {
       label: "NotChanukah";
       daysUntilChanukah: number;
