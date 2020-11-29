@@ -90,7 +90,6 @@ const MenorahImg = styled.div<MenorahProps>`
         fill: #223;
       }
 
-      .shamash,
       .${day} {
         fill: #ff0;
       }
