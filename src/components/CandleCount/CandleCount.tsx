@@ -3,7 +3,7 @@ import moment from "moment";
 import { getTodayChanukahEvent } from "./CandleCountHelpers";
 import { getCurrentPosition } from "./getCurrentPosition";
 import { pluralise } from "../../helpers";
-import { Button } from "./Button";
+import { GrantLocationButton, GoToMyZmanimButton } from "./Button";
 import { captureException } from "@sentry/browser";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import styled from "styled-components";
@@ -30,12 +30,12 @@ type ChanukahState =
       label: "ChanukahReqComplete";
       candleCount: number;
       candleLightingTime: { day: "Weekday"; time: Date } | { day: "Friday" };
+      coords: { lat: number; lon: number };
       cityName: string | null;
     };
 
 const Text = styled.h3`
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin: 0.5em 0;
 `;
 
 export const useGetCandleCount = (): [
@@ -95,7 +95,14 @@ export const useGetCandleCount = (): [
         );
 
         if (tonightChanukah.label === "Chanukah") {
-          setState({ ...tonightChanukah, label: "ChanukahReqComplete" });
+          setState({
+            ...tonightChanukah,
+            label: "ChanukahReqComplete",
+            coords: {
+              lat: result.coordinates.latitude,
+              lon: result.coordinates.longitude,
+            },
+          });
         } else if (
           tonightChanukah.label === "NotChanukah" ||
           tonightChanukah.label === "8thDayChanukah"
@@ -137,9 +144,9 @@ export const CandleCount: FC<CandleCountProps> = ({
       switch (reason) {
         case NoGeoReason.NotAsked:
           return (
-            <Button onClick={askLocationPermission}>
+            <GrantLocationButton onClick={askLocationPermission}>
               Use your location to get candle lighting times
-            </Button>
+            </GrantLocationButton>
           );
 
         case NoGeoReason.AllowedButUnable:
@@ -171,8 +178,8 @@ export const CandleCount: FC<CandleCountProps> = ({
 
       return (
         <Text>
-          It is {daysUntilChanukah} day{pluralise(daysUntilChanukah)} until the
-          first night of Chanukah! 🕎
+          🕎 It is {daysUntilChanukah} day{pluralise(daysUntilChanukah)} until
+          the first night of Chanukah! 🍩
         </Text>
       );
 
@@ -203,13 +210,22 @@ export const CandleCount: FC<CandleCountProps> = ({
         return (
           <>
             <Text>
-              One lights {candleCount} candle{pluralise(candleCount)} today.
+              One lights {candleCount} candle{pluralise(candleCount)} today
             </Text>
             <Text>
-              The Chanukah lighting time on Fridays is just before the time of
-              Shabbat candles – the exact time of which depends on the local
-              custom in {displayCityName}.
+              The Chanukah lighting time on Fridays is before lighting Shabbat
+              candles
             </Text>
+            <form
+              target="_blank"
+              rel="noopener" // This is correct, even if TS complains
+              method="POST"
+              action={`https://www.myzmanim.com/search.aspx?q=${state.coords.lat}%2c${state.coords.lon}`}
+            >
+              <GoToMyZmanimButton type="submit">
+                See Shabbat times for {displayCityName} on MyZmanim ↗
+              </GoToMyZmanimButton>
+            </form>
           </>
         );
       }
