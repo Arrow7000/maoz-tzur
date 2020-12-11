@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getInOrderOfPreference, momentDay } from "../../helpers";
 import { captureException } from "@sentry/browser";
+import { daysMovedIntoFuture } from "../../config";
 
 const candlesRegex = /^Chanukah: (\d) Candles?/;
 const eighthDayRegex = /^Chanukah: 8th Day$/;
@@ -65,8 +66,7 @@ export async function getTodayChanukahEvent(
     captureException(err);
   }
 
-  // change the 0 number to test various scenarios
-  const todayMoment = momentDay(today).add(0, "days");
+  const todayMoment = momentDay(today).add(daysMovedIntoFuture, "days");
 
   const chanukahDatedItems = data.items.filter((item) =>
     item.title.match(candlesRegex)
